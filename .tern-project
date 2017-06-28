@@ -1,0 +1,15 @@
+{
+    "lib": [
+        "browser",
+        "jquery",
+        "underscore",
+        "react"
+    ],
+    "plugins": {
+        "doc_comment": {},
+        "node": {},
+        "es_modules": {},
+        "modules": {},
+        "commonjs": {}
+    }
+}
