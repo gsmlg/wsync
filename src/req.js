@@ -1,7 +1,5 @@
-import {
-  defaults,
-  includes,
-} from 'lodash';
+import defaults from 'lodash/defaults';
+import includes from 'lodash/includes';
 
 import {
   ServerError,
@@ -21,11 +19,13 @@ import Response from './response';
  */
 const req = (method, url, options) => {
 
+  options = defaults({}, options, req.defaultOptions);
+
   let xhr = new XMLHttpRequest();
 
   let promise = new Promise((fulfill, reject) => {
     try {
-      method = (method + '').UpperCase();
+      method = (method + '').toUpperCase();
 
       let data;
       if (includes(['GET', 'HEAD'], method)) {
@@ -72,7 +72,10 @@ const req = (method, url, options) => {
 
       xhr.send(data);
     } catch(e) {
-
+      let connectionError = new ConnectionError();
+      connectionError.response = new Response(xhr);
+      connectionError.exception = e;
+      reject(connectionError);
     }
 
   });
