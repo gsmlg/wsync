@@ -1,6 +1,6 @@
 {
   "name": "wsync",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Sync data between Server and Web Browser",
   "main": "dist/wsync.js",
   "scripts": {
