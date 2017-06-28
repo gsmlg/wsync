@@ -1,7 +1,9 @@
+import req from './req';
+
 const wsync = {
-  greet() {
-    return 'hello';
-  }
+  req: req
 };
+
+req.defaultOptions = wsync.defaultOptions;
 
 export default wsync;
