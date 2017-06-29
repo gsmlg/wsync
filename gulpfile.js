@@ -20,6 +20,8 @@ const mainFile = manifest.main;
 const destinationFolder = path.dirname(mainFile);
 const exportFileName = path.basename(mainFile, path.extname(mainFile));
 
+const karma = require('karma');
+
 function cleanDist(done) {
   del([destinationFolder]).then(() => done());
 }
@@ -78,14 +80,13 @@ function build() {
     .pipe(gulp.dest(destinationFolder));
 }
 
-function _mocha() {
-  return gulp.src(['test/setup/node.js', 'test/unit/**/*.js'], {read: false})
-    .pipe($.mocha({
-      reporter: 'dot',
-      globals: Object.keys(mochaGlobals.globals),
-      ignoreLeaks: false
-    }));
-}
+function _karma(done) {
+  new karma.Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
+};
+
 
 function _registerBabel() {
   require('babel-register');
@@ -93,7 +94,7 @@ function _registerBabel() {
 
 function test() {
   _registerBabel();
-  return _mocha();
+  return _karma();
 }
 
 function coverage(done) {
@@ -104,11 +105,8 @@ function coverage(done) {
       includeUntested: true
     }))
     .pipe($.istanbul.hookRequire())
-    .on('finish', () => {
-      return test()
-        .pipe($.istanbul.writeReports())
-        .on('end', done);
-    });
+    .pipe($.istanbul.writeReports())
+    .on('end', done);
 }
 
 const watchFiles = ['src/**/*', 'test/**/*', 'package.json', '**/.eslintrc'];
@@ -187,13 +185,10 @@ gulp.task('lint', ['lint-src', 'lint-test', 'lint-gulpfile']);
 gulp.task('build', ['lint', 'clean'], build);
 
 // Lint and run our tests
-gulp.task('test', ['lint'], test);
+gulp.task('test-karma', ['lint'], _karma);
 
 // Set up coverage and run tests
-gulp.task('coverage', ['lint'], coverage);
-
-// Set up a livereload environment for our spec runner `test/runner.html`
-gulp.task('test-browser', ['lint', 'clean-tmp'], testBrowser);
+gulp.task('coverage', ['lint', 'test-karma'], coverage);
 
 // Run the headless unit tests as you make changes.
 gulp.task('watch', watch);
