@@ -8,5 +8,6 @@ describe('wsync', () => {
     it('should return promise', () => {
       expect(wsync.req('GET', '/')).to.be.an.instanceOf(Promise);
     });
+
   });
 });
