@@ -1,6 +1,4 @@
-import each from 'lodash/each';
-import isPlainObject from 'lodash/isplainobject';
-import isFunction from 'lodash/isfunction';
+import { each, isPlainObject, isFunction } from 'lodash';
 
 var rbracket = /\[\]$/;
 
