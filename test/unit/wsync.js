@@ -1,13 +1,12 @@
 import wsync from '../../src/wsync';
 
 describe('wsync', () => {
-  describe('Greet function', () => {
+  describe('test req GET', () => {
     beforeEach(() => {
-      spy(wsync, 'req');
     });
 
     it('should return promise', () => {
-      expect(wsync.req('GET', '/')).to.be.a('promise');
+      expect(wsync.req('GET', '/')).to.be.an.instanceOf(Promise);
     });
   });
 });
