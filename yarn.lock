@@ -2876,10 +2876,6 @@ istanbul@^0.4.0, istanbul@~0.4.5:
     which "^1.1.1"
     wordwrap "^1.0.0"
 
-jasmine-core@^2.6.4:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.6.4.tgz#dec926cd0a9fa287fb6db5c755fa487e74cecac5"
-
 js-tokens@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
@@ -2965,10 +2961,6 @@ karma-coverage@^1.1.1:
     lodash "^3.8.0"
     minimatch "^3.0.0"
     source-map "^0.5.1"
-
-karma-jasmine@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/karma-jasmine/-/karma-jasmine-1.1.0.tgz#22e4c06bf9a182e5294d1f705e3733811b810acf"
 
 karma-mocha-reporter@^2.2.3:
   version "2.2.3"
