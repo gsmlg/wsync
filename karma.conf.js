@@ -29,6 +29,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'src/**/*.js': ['coverage'],
       'test/**/*': ['webpack']
     },
 
@@ -88,6 +89,12 @@ module.exports = function(config) {
     webpack: {
       module: {
         loaders: [
+          {
+            test: /src\/.+\.js$|\.jsx$/,
+            enforce: 'post',
+            loader: 'istanbul-instrumenter-loader?esModules',
+            exclude: /node_modules|\.spec\.js$/,
+          },
           {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
           {test: /\.json$/, loader: 'json-loader'},
         ]
@@ -95,10 +102,15 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
+      dir: 'coverage',
       reporters: [
+        { type: 'lcov', subdir: '.' },
         { type: 'text' },
         { type: 'text-summary' },
-      ]
+      ],
+      instrumenterOptions: {
+        istanbul: { noCompact: true }
+      }
     }
 
   });
