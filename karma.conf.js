@@ -102,6 +102,12 @@ module.exports = function(config) {
       },
     },
 
+    webpackMiddleware: {
+      stats: {
+        chunks: false,
+      }
+    },
+
     coverageReporter: {
       dir: 'coverage',
       reporters: [
