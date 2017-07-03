@@ -30,7 +30,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'src/**/*.js': ['coverage'],
-      'test/**/*': ['webpack']
+      'test/**/*': ['webpack', 'sourcemap']
     },
 
 
@@ -87,6 +87,7 @@ module.exports = function(config) {
     concurrency: Infinity,
 
     webpack: {
+      devtool: 'inline-source-map',
       module: {
         loaders: [
           {
@@ -104,7 +105,7 @@ module.exports = function(config) {
     coverageReporter: {
       dir: 'coverage',
       reporters: [
-        { type: 'lcov', subdir: '.' },
+        { type: 'lcovonly', subdir: '.' },
         { type: 'text' },
         { type: 'text-summary' },
       ],
