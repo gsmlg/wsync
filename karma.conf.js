@@ -91,7 +91,7 @@ module.exports = function(config) {
       module: {
         loaders: [
           {
-            test: /src\/.+\.js$|\.jsx$/,
+            test: /src[\/\\].+\.js$/,
             enforce: 'post',
             loader: 'istanbul-instrumenter-loader?esModules',
             exclude: /node_modules|\.spec\.js$/,
