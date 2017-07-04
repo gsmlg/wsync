@@ -8,23 +8,33 @@ import {
 describe('wsync.Errors', () => {
 
   it('Create ServerError Instance and have a name `ServerError`', () => {
-    expect(new ServerError).to.be.instanceof(Error).that.have.property('name').that.to.equal('ServerError');
+    let error = new ServerError;
+    expect(error).toBeInstanceOf(Error);
+    expect(error).toHaveProperty('name', 'ServerError');
   });
 
   it('Create ClientError Instance and have a name `ClientError`', () => {
-    expect(new ClientError).to.be.instanceof(Error).that.have.property('name').that.to.equal('ClientError');
+    let error = new ClientError;
+    expect(error).toBeInstanceOf(Error);
+    expect(error).toHaveProperty('name', 'ClientError');
   });
 
   it('Create ConnectionError Instance and have a name `ConnectionError`', () => {
-    expect(new ConnectionError).to.be.instanceof(Error).that.have.property('name').that.to.equal('ConnectionError');
+    let error = new ConnectionError;
+    expect(error).toBeInstanceOf(Error);
+    expect(error).toHaveProperty('name', 'ConnectionError');
   });
 
   it('Create TimeoutError Instance and have a name `TimeoutError`', () => {
-    expect(new TimeoutError).to.be.instanceof(Error).that.have.property('name').that.to.equal('TimeoutError');
+    let error = new TimeoutError;
+    expect(error).toBeInstanceOf(Error);
+    expect(error).toHaveProperty('name', 'TimeoutError');
   });
 
   it('Create AbortError Instance and have a name `AbortError`', () => {
-    expect(new AbortError).to.be.instanceof(Error).that.have.property('name').that.to.equal('AbortError');
+    let error = new AbortError;
+    expect(error).toBeInstanceOf(Error);
+    expect(error).toHaveProperty('name', 'AbortError');
   });
 
 });

@@ -1,28 +1,50 @@
-var mochaGlobals = require('./.globals.json').globals;
+beforeEach(function() {
+  jasmine.addMatchers({
+    toHaveProperty: function (util) {
+      return {
+        compare: function (actual, propertyName, propertyValue) {
+          var result = {};
 
-mocha.setup('bdd');
+          if (!actual.hasOwnProperty(propertyName)) {
+            result.pass = false;
+            result.message = 'Expected ' + actual +
+              ' to have property ' + propertyName +
+              ', but has only ' + Object.keys(actual).join(', ') + '.';
+            return result;
+          }
 
-mocha.checkLeaks();
-mocha.globals(Object.keys(mochaGlobals));
+          if (propertyValue !== undefined) {
+            result.pass = util.equals(actual[propertyName], propertyValue);
+          } else {
+            result.pass = true;
+          }
 
+          if (!result.pass) {
+            result.message = 'Expected property "' + propertyName + '" of ' + actual +
+              ' to be equal to ' + propertyValue +
+              ' but it is ' + actual[propertyName];
+          }
 
-const root = window;
-root.expect = root.chai.expect;
+          return result;
+        }
+      };
+    },
+    toBeInstanceOf: function(util) {
+      return {
+        compare: function(actual, anyClass) {
+          var result = {};
+          var notText = util.isNot ? " not" : "";
 
-beforeEach(() => {
-  // Using these globally-available Sinon features is preferrable, as they're
-  // automatically restored for you in the subsequent `afterEach`
-  root.sandbox = root.sinon.sandbox.create();
-  root.stub = root.sandbox.stub.bind(root.sandbox);
-  root.spy = root.sandbox.spy.bind(root.sandbox);
-  root.mock = root.sandbox.mock.bind(root.sandbox);
-  root.useFakeTimers = root.sandbox.useFakeTimers.bind(root.sandbox);
-  root.useFakeXMLHttpRequest = root.sandbox.useFakeXMLHttpRequest.bind(root.sandbox);
-  root.useFakeServer = root.sandbox.useFakeServer.bind(root.sandbox);
-});
+          if (actual instanceof anyClass) {
+            result.pass = true;
+          } else {
+            result.pass = false;
+            result.message = "Expected " + actual.constructor.name + notText + " is instance of " + anyClass.name;
+          }
 
-afterEach(() => {
-  delete root.stub;
-  delete root.spy;
-  root.sandbox.restore();
+          return result;
+        }
+      };
+    }
+  });
 });
