@@ -21,6 +21,7 @@ const req = (method, url, options) => {
 
   options = defaults({}, options, req.defaultOptions);
 
+  // create xhr object
   let xhr = new XMLHttpRequest();
 
   let promise = new Promise((fulfill, reject) => {
