@@ -7,5 +7,10 @@ describe('wsync', () => {
       expect(wsync.req('GET', '/')).toBeInstanceOf(Promise);
     });
 
+    it('is a test demo', () => {
+      expect(true).toBeTruthy();
+      expect(false).toBeTruthy();
+    });
+
   });
 });
